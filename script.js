@@ -35,6 +35,19 @@ menu.addEventListener("click", function (event) {
     const price = parseFloat(parentButton.getAttribute("data-price"));
 
     addToCart(name, price);
+
+    Toastify({
+      text: "Item adicionado!",
+  duration: 3000,
+  close: true,
+  gravity: "top", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "#16a34a",
+  },
+    }).showToast();
+
   }
 });
 
@@ -70,14 +83,14 @@ function updateCartModal() {
     );
 
     cartItemElement.innerHTML = `
-     <div class="flex items-center justify-between">
+     <div class="flex items-center justify-between px-4 py-1 shadow-lg rounded-3xl">
         <div>
-        <p class="font-medium">${item.name}</p>
+        <p class="font-semibold">${item.name}</p>
         <p>Qtd: ${item.quantify}m</p>
         <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
         </div>
 
-        <button class="remove-from-cart-btn" data-name="${item.name}">
+        <button class="remove-from-cart-btn px-2 py-1" data-name="${item.name}">
           Remover
         </button>
      </div>
@@ -93,7 +106,11 @@ function updateCartModal() {
     currency: "BRL",
   });
 
-  cartCounter.innerHTML = cart.length;
+  if(cart.length > 0) {
+    cartCounter.innerHTML = cart.length;
+
+    cartCounter.style.display = "flex"
+  }
 }
 
 //Função para remover o item do carrinho
@@ -102,6 +119,19 @@ cartItemsContainer.addEventListener("click", function (event) {
     const name = event.target.getAttribute("data-name");
 
     removeItemCart(name);
+
+    Toastify({
+      text: "Item removido!",
+  duration: 3000,
+  close: true,
+  gravity: "top", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "#EF4444",
+  },
+    }).showToast();
+
   }
 });
 
@@ -132,11 +162,24 @@ checkoutBtn.addEventListener('click', function() {
   }).join("")
 
   const message = encodeURIComponent(cartItems)
-  const phone = "85998137189"
+  const phone = "5585989942013"
 
   window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank")
 
   cart = [];
   updateCartModal();
+
+  Toastify({
+    text: "Pedido enviado com sucesso!",
+duration: 3000,
+close: true,
+gravity: "top", // `top` or `bottom`
+position: "right", // `left`, `center` or `right`
+stopOnFocus: true, // Prevents dismissing of toast on hover
+style: {
+  background: "#16a34a",
+},
+  }).showToast();
+
 })
  
