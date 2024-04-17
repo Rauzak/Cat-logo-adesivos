@@ -110,6 +110,8 @@ function updateCartModal() {
     cartCounter.innerHTML = cart.length;
 
     cartCounter.style.display = "flex"
+  } else {
+    cartCounter.style.display = "none"
   }
 }
 
