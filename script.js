@@ -109,9 +109,11 @@ function updateCartModal() {
   if(cart.length > 0) {
     cartCounter.innerHTML = cart.length;
 
+    checkoutBtn.style.display = "flex"
     cartCounter.style.display = "flex"
   } else {
     cartCounter.style.display = "none"
+    checkoutBtn.style.display = "none"
   }
 }
 
@@ -159,14 +161,14 @@ checkoutBtn.addEventListener('click', function() {
 
   const cartItems = cart.map((item) => {
     return (
-      ` ${item.name} - Quantidade: (${item.quantify}) - Preço: R$ ${item.price} |`
+      `${item.name} - Quantidade: (${item.quantify}) - Preço: R$ ${item.price} | `
     )
   }).join("")
 
   const message = encodeURIComponent(cartItems)
   const phone = "5585989942013"
 
-  window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank")
+  window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value} | Total do pedido: ${cartTotal.textContent}`, "_blank")
 
   cart = [];
   updateCartModal();
